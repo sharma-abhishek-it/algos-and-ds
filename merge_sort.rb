@@ -13,7 +13,7 @@ def recursive_merging (list, start, stop)
         
         a = Array.new
 #       
-        right_stop-last_start.times do
+        stop-start.times do
             break if left_start == left_stop or right_start == right_stop
             expr = list[left_start] <= list[right_start]
             index = expr ? left_start : right_start
