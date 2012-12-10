@@ -12,39 +12,20 @@ def recursive_merging (list, start, stop)
         recursive_merging list, right_start, right_stop
         
         a = Array.new
-        i1 = left_start
-        i2 = left_stop
-        j1 = right_start
-        j2 = right_stop
-
-        while i1 <= i2 and j1 <= j2 do
-            index = 0
-            if list[i1] <= list[j1]
-                index = i1
-                i1 += 1
-            else
-                index = j1
-                j1 += 1
-            end
+#       
+        right_stop-last_start.times do
+            break if left_start == left_stop or right_start == right_stop
+            expr = list[left_start] <= list[right_start]
+            index = expr ? left_start : right_start
             a.push list[index]
-        end
-
-        remaining_start = 0
-        remaining_stop = 0
-        if i1 < i2
-            remaining_start = i1
-            remaining_stop = i2
-        else
-            remaining_start = j1
-            remaining_stop = j2
-        end
-
-        list[remaining_start..remaining_stop].each do |val|
-            a.push val
+            expr ? left_start += 1 : right_start += 1
         end
         
-        (left_start..right_stop).each do |index|
-            list[index] = a[index - left_start]
+        (left_start..left_stop).each { |i| a.push list[i] } unless left_start == left_stop
+        (right_start..right_stop).each { |i| a.push list[i] } unless right_start == right_stop
+    
+        (start..stop).each do |index|
+            list[index] = a[index-start]
         end
     end
     return
