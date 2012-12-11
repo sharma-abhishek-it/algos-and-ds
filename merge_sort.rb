@@ -38,24 +38,18 @@ def nonrecursive_merging (list, start, stop)
     when 1
         list[start], list[stop] = list[stop], list[start] if list[start] > list[stop]
     else
-        levels = Math.log2(list.size).to_i
+        merge_size = 2
         loop {
-            break if list.size / merge_size < 1
-            a = Array.new
-            puts "#####"
-            list.each_slice(merge_size) do |slice|
-                puts slice.to_s
-                middle = (slice.size - 1) / 2
-                merge_sorted slice, 0, middle, middle+1, slice.size-1, 0, slice.size-1
-                puts slice.to_s
-                a << slice
+            break if merge_size / 2 >= list.size
+            
+            0.step(list.size, merge_size) do |step|
+                start = step
+                stop = list.size <= step+merge_size ? list.size - 1 : step+merge_size - 1
+                break if stop - start + 1 < merge_size / 2
+                merge_sorted list, start, start + merge_size/2 - 1, start + merge_size/2, stop, start, stop
             end
-
-            a.flatten!
-
-            a.each_index {|i| list[i] = a[i]}
+            
             merge_size *= 2
-            puts ""
         }
     end
 end
