@@ -2,10 +2,14 @@ def merge_sorted (list, left_start, left_stop, right_start, right_stop, start, s
     a = Array.new
     (stop-start+1).times do
         break if left_start > left_stop or right_start > right_stop
-        expr = list[left_start] <= list[right_start]
-        index = expr ? left_start : right_start
+        
+        is_left_element_smaller = list[left_start] <= list[right_start]
+        
+        index = is_left_element_smaller ? left_start : right_start
+        
         a.push list[index]
-        expr ? left_start += 1 : right_start += 1
+        
+        is_left_element_smaller ? left_start += 1 : right_start += 1
     end
 
     (left_start..left_stop).each { |i| a.push list[i] }
