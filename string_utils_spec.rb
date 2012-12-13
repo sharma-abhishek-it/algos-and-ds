@@ -1,7 +1,7 @@
 require "./string_utils"
 
 describe String do
-    describe "#remove_duplicates" do
+    describe "#remove_duplicates!" do
         @tests = {
             "aabbddtcg" => "abdtcg",
             "abgahha" => "abgh",
