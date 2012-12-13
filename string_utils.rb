@@ -1,3 +1,5 @@
+require "./merge_sort"
+
 class String
     def remove_duplicates!
         return if self.empty?
@@ -12,5 +14,17 @@ class String
                 index += 1 
             end
         end
+    end
+
+    def is_anagram?(other)
+        return false if other == nil or self.size != other.size
+        
+        a = self.dup
+        b = other.dup
+        
+        MergeSorter.sort_non_recursive(a)
+        MergeSorter.sort_non_recursive(b)
+        
+        return a == b
     end
 end
