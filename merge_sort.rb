@@ -60,10 +60,12 @@ class MergeSorter
     end
 
     def self.sort_recursive (list)
+        return if list.empty?
         recursive_merging list, 0, list.size - 1
     end
 
     def self.sort_non_recursive (list)
+        return if list.empty?
         nonrecursive_merging list, 0, list.size - 1
     end
 end
