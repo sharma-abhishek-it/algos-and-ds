@@ -1,6 +1,18 @@
 class Node
     attr_reader :data
     attr_accessor :next
+    
+    def to_s
+        s = ""
+        node = self
+        s << node.data.to_s
+        until node.next.nil? do
+            s << " -> "
+            s << node.next.data.to_s
+            node = node.next
+        end
+        return s
+    end
 
     def initialize(val)
         @data = val
@@ -57,5 +69,10 @@ class Node
         end
 
         return ((i.eql? n) ? follow_up : nil)
+    end
+
+    def delete!
+        raise "last node cannot be deleted" if self.next.nil?
+        @data, @next = self.next.data, self.next.next
     end
 end
