@@ -41,4 +41,21 @@ class Node
             node=node.next
         end
     end
+
+    def from_last(n)
+        i = 0
+        node = self
+        follow_up = self
+
+        until node.next.nil? do
+            if i < n
+                i += 1
+            else
+                follow_up = follow_up.next
+            end
+            node = node.next
+        end
+
+        return ((i.eql? n) ? follow_up : nil)
+    end
 end

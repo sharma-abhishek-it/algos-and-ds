@@ -42,6 +42,44 @@ describe Node do
                 @head.next.next.data.should eql 3
             end 
         end
+    end
 
+    describe "#from_last" do
+        before :each do
+            @head = Node.new 1
+        end
+        
+        it "returns nil for only one element in list" do
+            (@head.from_last 2).should be_nil
+        end
+
+        it "returns nil for n more then no. of elements before last node in list" do
+            @head.append! Node.new 2
+            (@head.from_last 2).should be_nil
+        end
+        
+        it "returns nil for n more then no. of elements in list" do
+            @head.append! Node.new 2
+            (@head.from_last 20).should be_nil
+        end
+        
+        it "returns the head when the element asked for is at length - 1" do
+            @head.append! Node.new 2
+            @head.append! Node.new 3
+            (@head.from_last 2).should eql @head
+        end
+
+        it "returns an element somewhere in the list which was needed" do
+            @head.append! Node.new 2
+            @head.append! Node.new 3
+            @head.append! Node.new 4
+            
+            searched_element = Node.new 5
+            @head.append! searched_element
+            
+            @head.append! Node.new 6
+            @head.append! Node.new 7
+            (@head.from_last 2).should eql searched_element
+        end
     end
 end
